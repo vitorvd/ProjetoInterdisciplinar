@@ -19,4 +19,5 @@ Projeto desenvolvido durante a disciplina "Projeto Interdisciplinar" da Universi
 | [Paulo César](https://github.com/paulocesarf) | Desenvolvimento completo do site |
 | [Maria Lara](https://github.com/mariialara) | Apoio e apresentação da hospedagem escolhida |
 | [Christian Hirsch](https://github.com/crstyhs) | Realização da Engenharia de Software do sistema |
-
+| [Robson Ribeiro](https://github.com/Robson-Ribeiro) | Manuseio da database |
+| [Caio Lima](https://github.com/CaioL-ops) | Database Manager |
