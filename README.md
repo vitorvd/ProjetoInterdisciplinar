@@ -17,4 +17,6 @@ Projeto desenvolvido durante a disciplina "Projeto Interdisciplinar" da Universi
 | --------- | --------- |
 | [Vitor Versiani](https://github.com/vitorvd) | Atuou como ScrumMaster e desenvolveu o sistema em C, além de definir a hospedagem ideal |
 | [Paulo César](https://github.com/paulocesarf) | Desenvolvimento completo do site |
+| [Maria Lara](https://github.com/mariialara) | Apoio e apresentação da hospedagem escolhida |
+| [Christian Hirsch](https://github.com/crstyhs) | Realização da Engenharia de Software do sistema |
 
