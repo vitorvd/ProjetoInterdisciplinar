@@ -10,3 +10,10 @@ Projeto desenvolvido durante a disciplina "Projeto Interdisciplinar" da Universi
 | PHP | Gerar uma dinâmica melhor pro usuário |
 | JS | Criação de animações |
 | C | Recriar o site em um software, tem a mesma ideia do site |
+
+## Grupo
+
+| Participante | Função |
+| [Vitor Versiani](https://github.com/vitorvd) | Atuou como ScrumMaster e desenvolveu o sistema em C, além de definir a hospedagem ideal |
+| [Paulo César](https://github.com/paulocesarf) | Desenvolvimento completo do site |
+
