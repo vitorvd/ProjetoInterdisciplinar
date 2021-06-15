@@ -14,6 +14,7 @@ Projeto desenvolvido durante a disciplina "Projeto Interdisciplinar" da Universi
 ## Grupo
 
 | Participante | Função |
+| --------- | --------- |
 | [Vitor Versiani](https://github.com/vitorvd) | Atuou como ScrumMaster e desenvolveu o sistema em C, além de definir a hospedagem ideal |
 | [Paulo César](https://github.com/paulocesarf) | Desenvolvimento completo do site |
 
