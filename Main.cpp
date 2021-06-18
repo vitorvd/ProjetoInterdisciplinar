@@ -1,14 +1,16 @@
-#include <stdio.h> //lib: importar funÁıes printf e scanf
+#include <stdio.h> //lib: importar fun√ß√µes printf e scanf
 #include <locale.h> //lib: formatar textos em utf-8
-#include <string.h> //lib: importar funÁıes para trabalhar com strings
-#include <stdlib.h> //lib: importar a funÁ„o de limpar a tela
-#include <ctype.h> //lib: importar funÁ„o toupper
+#include <string.h> //lib: importar fun√ß√µes para trabalhar com strings
+#include <stdlib.h> //lib: importar a fun√ß√£o de limpar a tela
+#include <ctype.h> //lib: importar fun√ß√£o toupper
 #include <ctype.h>  //lib
 
-/* DeclaraÁ„o dos structs, v„o facilitar a manipulaÁ„o dos Admins e das Obras do sistema. */
+/* Declara√ß√£o dos structs, v√£o facilitar a manipula√ß√£o dos Admins e das Obras do sistema. */
 struct Admin {
 	char usuario[20];
 	char senha[10];
+	char dataRegistro[]; //no C n√£o existe o campo DateTime
+	char dataUltimaSaida[]; //no C n√£o existe o campo DateTime
 };
 
 struct Obra {
@@ -20,16 +22,16 @@ struct Obra {
 	float avaliacao;
 };
 
-/* DeclaraÁ„o das vari·veis principais do Projeto */
+/* Declara√ß√£o das vari√°veis principais do Projeto */
 int qntAdmins = 2, qntObras = 10, opcaoDigitada = 0;
 
 bool isAutenticado = false;
 struct Admin admins[2], adminLogado;
 struct Obra obras[10];
 
-/*  DeclaraÁ„o das funÁıes que criamos no Projeto. 
-	O intuito das funÁıes È a fragmentaÁ„o do cÛdigo, tornando mais organizado e gerando uma
-	melhor difus„o das tarefas.
+/*  Declara√ß√£o das fun√ß√µes que criamos no Projeto. 
+	O intuito das fun√ß√µes √© a fragmenta√ß√£o do c√≥digo, tornando mais organizado e gerando uma
+	melhor difus√£o das tarefas.
  */
 void getCabecalhoById(int cabecalhoId);
 void exibirPainelAdministrativo();
@@ -37,7 +39,7 @@ void listarObras();
 void exibirRelatorio();
 bool autenticar();
 
-/* FunÁ„o principal */
+/* Fun√ß√£o principal */
 int main() {
 	setlocale(LC_ALL, "Portuguese");
 	
@@ -45,8 +47,8 @@ int main() {
 	
 	while(opcaoPrincipal != 9) {
 		do {
-			getCabecalhoById(1); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
-			printf("Selecione uma das opÁıes: ");
+			getCabecalhoById(1); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
+			printf("Selecione uma das op√ß√µes: ");
 			scanf("%d", &opcaoPrincipal);
 		} while((opcaoPrincipal != 1) && (opcaoPrincipal != 2) && (opcaoPrincipal != 3) && (opcaoPrincipal != 9));
 		
@@ -54,56 +56,56 @@ int main() {
 			case 1:
 				// Painel Administrativo
 				do {
-					getCabecalhoById(2); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
-					printf("Selecione uma das opÁıes: ");
+					getCabecalhoById(2); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
+					printf("Selecione uma das op√ß√µes: ");
 					scanf("%d", &opcaoDigitada);
 				} while((opcaoDigitada != 1) && (opcaoDigitada != 2));
 				
 				if(opcaoDigitada == 1){
-					// AutenticaÁ„o dos Admins
+					// Autentica√ß√£o dos Admins
 					
 					do{
-						getCabecalhoById(3); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
-						printf("ª Informe seu Usu·rio: ");
+						getCabecalhoById(3); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
+						printf("¬ª Informe seu Usu√°rio: ");
 						scanf("%s", &adminLogado.usuario);
-						printf("ª %s, informe sua Senha: ", adminLogado.usuario);
+						printf("¬ª %s, informe sua Senha: ", adminLogado.usuario);
 						scanf("%s", &adminLogado.senha);
 						
-						isAutenticado = autenticar(); // Chamando a funÁ„o de autenticaÁ„o, que retorna um valoor booleano (true/false)
+						isAutenticado = autenticar(); // Chamando a fun√ß√£o de autentica√ß√£o, que retorna um valoor booleano (true/false)
 						
 						if(!isAutenticado) {
 							adminLogado.usuario[strlen(adminLogado.usuario) - 1] = '\0';
 							adminLogado.senha[strlen(adminLogado.senha) - 1] = '\0';
 							system("cls");	
-							printf("\n\n**FALHA** ª As credenciais s„o inv·lidas, tente novamente!\n\n");
+							printf("\n\n**FALHA** ¬ª As credenciais s√£o inv√°lidas, tente novamente!\n\n");
 							system("pause");
 							system("cls");
 						}
 					}while(!isAutenticado);
 					
 					if(isAutenticado){
-						exibirPainelAdministrativo(); // Chamando a funÁ„o
+						exibirPainelAdministrativo(); // Chamando a fun√ß√£o
 					}
 				}else{
 					// Cadastro dos Admins
 					
-					getCabecalhoById(4); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
+					getCabecalhoById(4); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
 					
 					bool temVagaAdmin = false;
 					
-					/*  Verificamos se h· espaÁo (na memÛria) para registrar mais um Admin.
-						A verificaÁ„o ocorre atravÈs do "length" da string "usuario", 
-						caso o "length" seja IGUAL a 0 significa que est· disponÌvel. 
+					/*  Verificamos se h√° espa√ßo (na mem√≥ria) para registrar mais um Admin.
+						A verifica√ß√£o ocorre atrav√©s do "length" da string "usuario", 
+						caso o "length" seja IGUAL a 0 significa que est√° dispon√≠vel. 
 					 */
 					for(int i = 0; i < qntAdmins; i++) {
-						if(strlen(admins[i].usuario) == 0){ // VerificaÁ„o pelo "length" atravÈs da funÁ„o "strlen"
+						if(strlen(admins[i].usuario) == 0){ // Verifica√ß√£o pelo "length" atrav√©s da fun√ß√£o "strlen"
 							do{
-								printf("ª Qual o Nome de Usu·rio? ");
+								printf("¬ª Qual o Nome de Usu√°rio? ");
 								scanf("%s", admins[i].usuario);
 							} while(strlen(admins[i].usuario) == 0);
 							
 							do{
-								printf("ª Ol· %s, qual ser· sua senha? ", admins[i].usuario);
+								printf("¬ª Ol√° %s, qual ser√° sua senha? ", admins[i].usuario);
 								scanf("%s", admins[i].senha);
 							} while(strlen(admins[i].senha) == 0);		
 							temVagaAdmin = true;
@@ -118,22 +120,22 @@ int main() {
 						isAutenticado = true;
 						exibirPainelAdministrativo();
 					}else{
-						printf("ª A Equipe Administrativa est· cheia!");
+						printf("¬ª A Equipe Administrativa est√° cheia!");
 						system("pause");	
 					}
 				}
 				break;
 				case 2:
 					// Lista todas as Obras cadastradas
-					getCabecalhoById(7); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
+					getCabecalhoById(7); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
 					break;
 				case 3:
-					// Exibe o relatÛrio das Obras
-					getCabecalhoById(9); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
+					// Exibe o relat√≥rio das Obras
+					getCabecalhoById(9); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
 					break;
 				case 9:
 					// Sair da CulturaWeb
-					getCabecalhoById(8); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
+					getCabecalhoById(8); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
 					break;
 				default:
 					printf("Desconhecido...");
@@ -142,12 +144,12 @@ int main() {
 	return 0;
 }
 
-/* FunÁ„o respons·vel por mostrar o Menu do Painel Administrativo */
+/* Fun√ß√£o respons√°vel por mostrar o Menu do Painel Administrativo */
 void exibirPainelAdministrativo() {
-	while(isAutenticado){ //Caso ele j· esteja logado (por exemplo: apÛs registrar uma obra)
+	while(isAutenticado){ //Caso ele j√° esteja logado (por exemplo: ap√≥s registrar uma obra)
 		do {
-			getCabecalhoById(5); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
-			printf("Selecione uma das opÁıes: ");
+			getCabecalhoById(5); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
+			printf("Selecione uma das op√ß√µes: ");
 			scanf("%d", &opcaoDigitada);
 		} while((opcaoDigitada != 1) && (opcaoDigitada != 2));
 		
@@ -157,54 +159,54 @@ void exibirPainelAdministrativo() {
 			for(int i = 0; i < qntObras; i++) {
 				if(strlen(obras[i].titulo) == 0){
 					do{
-						printf("ª Categorias disponÌveis: Filme, Serie ou Livro.\n");
-						printf("ª Qual a categoria da Obra? ");
+						printf("¬ª Categorias dispon√≠veis: Filme, Serie ou Livro.\n");
+						printf("¬ª Qual a categoria da Obra? ");
 						scanf("%s", &obras[i].categoria);
 						fflush(stdin);
 					} while((strcmp(obras[i].categoria, "Filme") != 0) && (strcmp(obras[i].categoria, "Serie") != 0) && (strcmp(obras[i].categoria, "Livro") != 0)  );
 					
 					do{
-						printf("ª Qual o TÌtulo do %s? ", obras[i].categoria);
+						printf("¬ª Qual o T√≠tulo do %s? ", obras[i].categoria);
 						fgets(obras[i].titulo, 40, stdin);
 						fflush(stdin);
 						obras[i].titulo[strlen(obras[i].titulo) - 1] = '\0';
 					} while(strlen(obras[i].titulo) == 0);
 					
 					do{
-						printf("ª Qual a Sinopse do(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
+						printf("¬ª Qual a Sinopse do(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
 						fgets(obras[i].sinopse, 200, stdin);
 						fflush(stdin);
 						obras[i].sinopse[strlen(obras[i].sinopse) - 1] = '\0';
 					} while((strlen(obras[i].sinopse) == 0) || (strlen(obras[i].sinopse) > 200));
 						
 					do{
-						printf("ª Qual o Autor do(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
+						printf("¬ª Qual o Autor do(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
 						fgets(obras[i].autor, 20, stdin);
 						fflush(stdin);
 						obras[i].autor[strlen(obras[i].autor) - 1] = '\0';
 					} while((strlen(obras[i].autor) == 0) || (strlen(obras[i].autor) > 20));
 					
 					do{
-						printf("ª Qual seu coment·rio do(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
+						printf("¬ª Qual seu coment√°rio do(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
 						fgets(obras[i].comentario, 200, stdin);
 						fflush(stdin);
 						obras[i].comentario[strlen(obras[i].comentario) - 1] = '\0';
 					} while((strlen(obras[i].comentario) == 0) || (strlen(obras[i].comentario) > 100));
 					
 					do{
-						printf("ª Qual sua AvaliaÁ„o, de 0 a 5, pro(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
+						printf("¬ª Qual sua Avalia√ß√£o, de 0 a 5, pro(a) %s '%s'? ", obras[i].categoria, obras[i].titulo);
 						scanf("%f", &obras[i].avaliacao);
 					} while((obras[i].avaliacao < 0) || (obras[i].avaliacao > 5));
 					
 					system("cls");
-					printf("\nSUCESSO ª Obra cadastrada: ");
+					printf("\nSUCESSO ¬ª Obra cadastrada: ");
 					
 					printf("\n\nCategoria: %s\n", obras[i].categoria);	
-					printf("TÌtulo: %s\n", obras[i].titulo);
+					printf("T√≠tulo: %s\n", obras[i].titulo);
 					printf("Sinopse: %s\n", obras[i].sinopse);
 					printf("Autor: %s\n", obras[i].autor);
-					printf("Coment·rio: %s\n", obras[i].comentario);
-					printf("AvaliaÁ„o: %.1f\n\n", obras[i].avaliacao);
+					printf("Coment√°rio: %s\n", obras[i].comentario);
+					printf("Avalia√ß√£o: %.1f\n\n", obras[i].avaliacao);
 					
 					system("pause");
 						
@@ -214,7 +216,7 @@ void exibirPainelAdministrativo() {
 			}
 			
 			if(!temEspacoObra) {
-				printf("\n\nª ERRO: O Banco de Dados das Obras est· cheio!\n\n");
+				printf("\n\n¬ª ERRO: O Banco de Dados das Obras est√° cheio!\n\n");
 				system("pause");
 			}
 		}else{
@@ -222,16 +224,16 @@ void exibirPainelAdministrativo() {
 			adminLogado.usuario[strlen(adminLogado.usuario) - 1] = '\0';
 			adminLogado.senha[strlen(adminLogado.senha) - 1] = '\0';
 			isAutenticado = false;
-			getCabecalhoById(6); // Chamando a funÁ„o que criamos, passando o par‚metro Id.
+			getCabecalhoById(6); // Chamando a fun√ß√£o que criamos, passando o par√¢metro Id.
 			system("pause");
 		}
 	}	
 }
 
-/*  FunÁ„o respons·vel pela autenticaÁ„o do usu·rio, com um retorno booleano. */
+/*  Fun√ß√£o respons√°vel pela autentica√ß√£o do usu√°rio, com um retorno booleano. */
 bool autenticar() {
 	for(int i = 0; i < qntAdmins; i++){
-		// Verificando se o Usu·rio e a Senha s„o compatÌveis com algum Usu·rio da memÛria.
+		// Verificando se o Usu√°rio e a Senha s√£o compat√≠veis com algum Usu√°rio da mem√≥ria.
 		if((strcmp(admins[i].usuario, adminLogado.usuario) == 0) && (strcmp(admins[i].senha, adminLogado.senha) == 0)){
 			if((strlen(admins[i].usuario) == 0) || (strlen(admins[i].senha) == 0)){
 				return false;	
@@ -243,76 +245,76 @@ bool autenticar() {
 	return false;
 }
 
-/*  FunÁ„o respons·vel por retornar um grupo de printf.
-	Sempre deve ser informado o Id do cabeÁalho.
+/*  Fun√ß√£o respons√°vel por retornar um grupo de printf.
+	Sempre deve ser informado o Id do cabe√ßalho.
  */
 void getCabecalhoById(int cabecalhoId) {
 	system("cls");
 	switch(cabecalhoId) {
 		case 1:
-			printf("\n\n============== SEJA BEM-VINDO ¿ CulturaWeb ==============\n\n");
-			printf("ª O que vocÍ deseja fazer? \n\n");
-			printf("[1] ª Acessar o Painel Administrativo\n");
-			printf("[2] ª Visualizar as Obras avaliadas\n");
-			printf("[3] ª RelatÛrio da CulturaWeb\n");
-			printf("[9] ª Sair da CulturaWeb");
-			printf("\n\n============== SEJA BEM-VINDO ¿ CulturaWeb ==============\n\n");
+			printf("\n\n============== SEJA BEM-VINDO √Ä CulturaWeb ==============\n\n");
+			printf("¬ª O que voc√™ deseja fazer? \n\n");
+			printf("[1] ¬ª Acessar o Painel Administrativo\n");
+			printf("[2] ¬ª Visualizar as Obras avaliadas\n");
+			printf("[3] ¬ª Relat√≥rio da CulturaWeb\n");
+			printf("[9] ¬ª Sair da CulturaWeb");
+			printf("\n\n============== SEJA BEM-VINDO √Ä CulturaWeb ==============\n\n");
 			break;
 		case 2:
 			printf("\n\n============== PAINEL ADMINISTRATIVO ==============\n\n");
-			printf("ª O que vocÍ deseja fazer? \n\n");
-			printf("[1] ª Desejo Autenticar\n");
-			printf("[2] ª Desejo Cadastrar");
+			printf("¬ª O que voc√™ deseja fazer? \n\n");
+			printf("[1] ¬ª Desejo Autenticar\n");
+			printf("[2] ¬ª Desejo Cadastrar");
 			printf("\n\n============== PAINEL ADMINISTRATIVO ==============\n\n");
 			break;
 		case 3:
-			printf("\n\n============== AUTENTICA«√O ==============\n\n");
-			printf("ª VocÍ dever· fornecer um Nome de Usu·rio e uma Senha v·lidos para proceder.");
-			printf("\n\n============== AUTENTICA«√O ==============\n\n");
+			printf("\n\n============== AUTENTICA√á√ÉO ==============\n\n");
+			printf("¬ª Voc√™ dever√° fornecer um Nome de Usu√°rio e uma Senha v√°lidos para proceder.");
+			printf("\n\n============== AUTENTICA√á√ÉO ==============\n\n");
 			break;
 		case 4:
 			printf("\n\n============== CADASTRO ==============\n\n");
-			printf("ª VocÍ dever· fornecer um Nome de Usu·rio e uma Senha para proceder.");
+			printf("¬ª Voc√™ dever√° fornecer um Nome de Usu√°rio e uma Senha para proceder.");
 			printf("\n\n============== CADASTRO ==============\n\n");
 			break;
 		case 5:
 			printf("\n\n============== PAINEL ADMINISTRATIVO ==============\n\n");
-			printf("ª Ol· %s, seja bem-vindo ao Painel Administrativo da CulturaWeb!\n\n", adminLogado.usuario);
-			printf("ª O que vocÍ deseja fazer?\n\n");
-			printf("[1] ª Cadastrar uma Obra.\n");
-			printf("[2] ª Sair do Painel.");
+			printf("¬ª Ol√° %s, seja bem-vindo ao Painel Administrativo da CulturaWeb!\n\n", adminLogado.usuario);
+			printf("¬ª O que voc√™ deseja fazer?\n\n");
+			printf("[1] ¬ª Cadastrar uma Obra.\n");
+			printf("[2] ¬ª Sair do Painel.");
 			printf("\n\n============== PAINEL ADMINISTRATIVO ==============\n\n");
 			break;
 		case 6:
-			printf("\n\n============== VOLTE SEMPRE ¿ CULTURAWEB ==============\n\n");
-			printf("ª VocÍ saiu do Painel Administrativo!");					
-			printf("\n\n============== VOLTE SEMPRE ¿ CULTURAWEB ==============\n\n");
+			printf("\n\n============== VOLTE SEMPRE √Ä CULTURAWEB ==============\n\n");
+			printf("¬ª Voc√™ saiu do Painel Administrativo!");					
+			printf("\n\n============== VOLTE SEMPRE √Ä CULTURAWEB ==============\n\n");
 			break;
 		case 7:
 			printf("\n\n============== OBRAS AVALIADAS ==============\n");
-			listarObras(); // Chamando a funÁ„o
+			listarObras(); // Chamando a fun√ß√£o
 			printf("\n\n============== OBRAS AVALIADAS ==============\n\n");
 			system("pause");
 			break;
 		case 8:
-			printf("\n\n============== VOLTE SEMPRE ¿ CULTURAWEB ==============\n\n");
-			printf("ª Aaaah, que pena! VocÍ j· vai?!\n");					
-			printf("ª Espero que tenha encontrado o que procurava!\n");
-			printf("ª Sentiremos saudades, amigx!\n");
-			printf("\n\n============== VOLTE SEMPRE ¿ CULTURAWEB ==============\n\n");
+			printf("\n\n============== VOLTE SEMPRE √Ä CULTURAWEB ==============\n\n");
+			printf("¬ª Aaaah, que pena! Voc√™ j√° vai?!\n");					
+			printf("¬ª Espero que tenha encontrado o que procurava!\n");
+			printf("¬ª Sentiremos saudades, amigx!\n");
+			printf("\n\n============== VOLTE SEMPRE √Ä CULTURAWEB ==============\n\n");
 			break;
 		case 9:
-			printf("\n\n============== RELAT”RIO CULTURAWEB ==============\n\n");
+			printf("\n\n============== RELAT√ìRIO CULTURAWEB ==============\n\n");
 			exibirRelatorio();
-			printf("\n\n============== RELAT”RIO CULTURAWEB ==============\n\n");
+			printf("\n\n============== RELAT√ìRIO CULTURAWEB ==============\n\n");
 			system("pause");
 			break;
 		default:
-			printf("ª ERRO: Id CabeÁalho desconhecido!!!");
+			printf("¬ª ERRO: Id Cabe√ßalho desconhecido!!!");
 	}
 }
 
-/* FunÁ„o respons·vel por exibir o relatÛrio geral do Sistema. */
+/* Fun√ß√£o respons√°vel por exibir o relat√≥rio geral do Sistema. */
 void exibirRelatorio() {
 	int adminsRegistrados = 0, obrasRegistradas = 0;
 	for(int i = 0; i < qntAdmins; i++){
@@ -326,21 +328,20 @@ void exibirRelatorio() {
 	}
 	
 	
-	printf("ª Administradores registrados: %d/%d \n", adminsRegistrados, qntAdmins);
-	printf("ª Obras registradas: %d/%d", obrasRegistradas, qntObras);
+	printf("¬ª Administradores registrados: %d/%d \n", adminsRegistrados, qntAdmins);
+	printf("¬ª Obras registradas: %d/%d", obrasRegistradas, qntObras);
 }
 
-/* FunÁ„o respons·vel por listar todas as Obras cadastras do sistema. */
+/* Fun√ß√£o respons√°vel por listar todas as Obras cadastras do sistema. */
 void listarObras() {
 	for(int i = 0; i < qntObras; i++) {
-		if(strlen(obras[i].titulo) != 0) { /* Verifico se a Obra existe atravÈs do "length" da String Titulo com a funÁ„o "strlen" */
-			printf("\n\nTÌtulo (%s): %s\n", obras[i].categoria, obras[i].titulo);
+		if(strlen(obras[i].titulo) != 0) { /* Verifico se a Obra existe atrav√©s do "length" da String Titulo com a fun√ß√£o "strlen" */
+			printf("\n\nT√≠tulo (%s): %s\n", obras[i].categoria, obras[i].titulo);
 			printf("Sinopse: %s\n", obras[i].sinopse);
 			printf("Autor: %s\n", obras[i].autor);
-			printf("Coment·rio: %s\n", obras[i].comentario);
-			printf("AvaliaÁ„o: %.1f", obras[i].avaliacao);
+			printf("Coment√°rio: %s\n", obras[i].comentario);
+			printf("Avalia√ß√£o: %.1f", obras[i].avaliacao);
 		}	
 	}
 }
-
 
